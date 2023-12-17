@@ -78,7 +78,8 @@ Front-end (Cascading Style Sheets (CSS)).
 Database (MySQL ).
 Testing: PostMan. 
 
-5. **User Documentation**
+
+ **User Documentation**
    
    1. Introduction <a name="introduction"></a>
 Welcome to the Online Bus Ticket Booking System! This platform allows users to easily book bus tickets, search for available buses, and manage their bookings. This document will guide you through the various features of the application.
