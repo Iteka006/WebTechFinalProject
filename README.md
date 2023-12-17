@@ -54,7 +54,8 @@ Week 1: Phase 1 Development
 User registration and authentication.
 Bus registration and basic management.
 Basic seat booking functionality.
-Week 2: Phase 2 Development
+
+Week 2:Phase 2 Development
 
 Enhanced seat booking features.
 Document upload/download functionality.
@@ -136,9 +137,7 @@ Backend:
 [Spring Data JPA]
 [Spring Security]
 
-Database:
-
-[Database Management System: MySQL]
+Database: [Database Management System: MySQL]
 
 
 Testing: [PostMan]
