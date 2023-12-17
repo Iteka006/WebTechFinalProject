@@ -89,22 +89,27 @@ URL: (http://localhost:8080/login.html)
 Credentials:
 Username/Phone Number: [Your registered phone number]
 Password: [Your chosen password]
+
 3. Register <a name="register"></a>
 New users need to register to use the services. Follow these steps:
 
 URL: (http://localhost:8080/register.html)
 Provide your details: First Name, Last Name, Phone Number, Password.
 Click "Register."
+
 4. Search Buses <a name="search-buses"></a>
 URL: (http://localhost:8080/booking.html)
 Enter the Origin, Destination, and Date.
 Click "Search Buses" to see available options.
+
 5. Book a Seat <a name="book-a-seat"></a>
 After searching for buses, click on a specific bus to view available seats.
 Select your preferred seat, enter passenger details, and click "Book."
 Confirm your booking.
+
 6.  Logout <a name="logout"></a>
 Click on "Logout" to securely log out of your account.
+
 
 6. **Technical Documentation**
    Architecture
