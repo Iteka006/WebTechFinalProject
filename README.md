@@ -19,6 +19,7 @@ The Online Bus Ticket Booking System aims to provide a convenient and efficient 
   
 - Document Management:
 Buses should support the upload and download of documents (Information about the Bus).
+
 3. _Constraints or Limitations:_
 Security: Ensure secure authentication and authorization mechanisms.
 Performance: The system should handle concurrent user requests efficiently.
@@ -26,24 +27,29 @@ Scalability: The system should be scalable to accommodate potential growth.
 
 **Project Plan**
 Scope of the Project:
+
 Phase 1: Basic Functionality
 
 Implement user registration and authentication.
 Implement bus registration and management.
 Develop basic seat booking functionality.
 
+
 Phase 2: Enhanced Functionality
 
 Improve seat booking with additional features.
 Implement document upload/download functionality.
 Enhance user experience with a responsive front-end.
+
 Phase 3: Optimization and Deployment
 
 Optimize the system for performance and security.
 Test the system extensively, fixing any bugs or issues.
 Deploy the Project to GitHub.
+
 Timeline:
 Week 1: Phase 1 Development
+
 
 User registration and authentication.
 Bus registration and basic management.
@@ -53,13 +59,17 @@ Week 2: Phase 2 Development
 Enhanced seat booking features.
 Document upload/download functionality.
 Front-end enhancements.
+
 Week 3: Phase 3 - Optimization and Deployment
+
 
 System optimization for performance.
 Testing and bug fixing.
 Deployment to GitHub.
 
+
 Resources:
+
 
 Spring Boot for Backend development.
 Front-end (Cascading Style Sheets (CSS)).
@@ -67,6 +77,7 @@ Database (MySQL ).
 Testing: PostMan. 
 
 5. **User Documentation**
+   
    1. Introduction <a name="introduction"></a>
 Welcome to the Online Bus Ticket Booking System! This platform allows users to easily book bus tickets, search for available buses, and manage their bookings. This document will guide you through the various features of the application.
 
