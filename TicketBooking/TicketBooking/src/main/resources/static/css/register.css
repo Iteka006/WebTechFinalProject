@@ -1,0 +1,143 @@
+body {
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #e5e5e5;
+        }
+
+        .login-container {
+            width: 1000px;
+            height: 700px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+
+        .red-part {
+            flex: 40%;
+            background-color: #d51010;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .red-part-text {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .connecting-message {
+            text-align: center;
+            color: #fff;
+        }
+
+        .white-part {
+            flex: 60%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align form items to the left */
+            justify-content: center; /* Center vertically */
+        }
+
+        .title {
+            text-align: center;
+            font-family: 'Inria Sans', sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center form items */
+            width: 100%; /* Make the form full-width */
+        }
+
+        label {
+            color: #131212;
+            margin-bottom: 8px;
+            text-align: left; /* Align label text to the left */
+            width: 80%; /* Adjusted label width */
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+            width: 80%; /* Adjusted input width */
+            box-sizing: border-box; /* Include padding and border in the total width */
+            font-size: 16px; /* Increased font size */
+            transition: border-color 0.3s;
+            outline: none; /* Remove default input focus outline */
+        }
+
+        input:focus {
+            border-color: #d51010; /* Change border color on focus */
+        }
+
+        button {
+            background-color: #d51010;
+            color: #fff;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            width: 80%; /* Adjusted button width */
+        }
+
+        button:hover {
+            background-color: #b50c0c;
+        }
+
+        .message {
+            margin-top: 10px;
+            text-align: center;
+            color: green; /* Set the color for success message */
+        }
+
+        /* Adjusted the margin-top for a little lower positioning */
+        .red-part div {
+            margin-top: 20px;
+        }
+
+        /* Additional styling for registration container */
+        .register-container {
+            width: 600px;
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Adjusted the margin-top for a little lower positioning */
+        .register-container div {
+            margin-top: 20px;
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+            text-align: center;
+        }
+ 

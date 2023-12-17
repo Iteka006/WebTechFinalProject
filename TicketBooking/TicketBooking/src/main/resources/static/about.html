@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/about.css" rel="stylesheet" />
+    <title>About Us - BusTicketBooking.com</title>
+   
+    
+</head>
+
+<body>
+    <nav>
+        <div>
+            <a href="booking.html">Home</a>
+            <a href="about.html">About us</a>
+            <a href="#">Contact us</a>
+            <!-- Add more links as needed -->
+        </div>
+        <div>
+            <a id="signOut" onclick="confirmSignOut()">Sign Out</a>
+        </div>
+    </nav>
+   
+
+    <div class="container">
+        <img src="busimage.jpg" alt="Bus Image" />
+
+        <p>Welcome to BusTicketBooking.com, your one-stop destination for convenient and hassle-free bus ticket
+            reservations. We are passionate about providing you with the best travel experience, connecting you to
+            thousands of destinations with just a few clicks.</p>
+
+        <p>At BusTicketBooking.com, we strive to make your journey comfortable, reliable, and affordable. Our user-friendly
+            platform allows you to explore various bus options, compare prices, and book tickets seamlessly. Whether
+            you're planning a short commute or a long-distance trip, we've got you covered.</p>
+
+        <img src="process.jpg" alt="Booking Process Image" />
+
+        <p>Why choose BusTicketBooking.com?</p>
+
+        <ul>
+            <li>Extensive Network: We partner with trusted bus operators to offer an extensive network of routes,
+                ensuring you can reach your destination with ease.</li>
+            <li>Easy Booking Process: Our intuitive booking process makes it simple for you to reserve your seats and
+                plan your journey efficiently.</li>
+            <li>Affordable Prices: We understand the value of your money. That's why we strive to provide competitive
+                prices and exclusive deals to make your travel budget-friendly.</li>
+            <li>Customer Support: Our dedicated customer support team is here to assist you 24/7. Feel free to reach out
+                to us with any queries or concerns.</li>
+        </ul>
+
+        <img src="happyClients.jpg" alt="Happy Customers Image" />
+
+        <p>Thank you for choosing BusTicketBooking.com. We look forward to being your preferred platform for all your
+            bus travel needs.</p>
+    </div>
+<br><br><br> <br> <br> <br> <br>
+<br> <br> <br>
+<footer id="footer" style="display: none;">
+    &copy; 2023 Your Bus Search App. All rights reserved.
+    <div class="contact-info">
+        <h3>Contact Us</h3>
+        <p>Address: 123 Main Street, Cityville</p>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Email: info@busticketbooking.com</p>
+    </div>
+</footer>
+</body>
+
+<script>
+    function confirmSignOut() {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to sign out?");
+
+            // If the user clicks "OK" (true), proceed with sign out
+            if (isConfirmed) {
+                signOut();
+            } else {
+                // If the user clicks "Cancel" (false), do nothing
+                // You can add additional logic if needed
+            }
+        }
+
+        function signOut() {
+            // Implement your sign-out logic here
+            // For example, redirect to the login page with a delay
+            setTimeout(function () {
+                window.location.href = 'login.html';
+            }, 1000); // Redirect after 1 second (adjust the delay as needed)
+        }
+        let lastScrollPosition = 0;
+const footer = document.querySelector('footer');
+
+window.addEventListener('scroll', function () {
+    const currentScrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.clientHeight;
+
+    if (currentScrollPosition + windowHeight >= documentHeight) {
+        // At the bottom of the page
+        footer.style.display = 'block';
+    } else {
+        // Not at the bottom
+        footer.style.display = 'none';
+    }
+
+    lastScrollPosition = currentScrollPosition;
+});
+</script>
+
+</html>

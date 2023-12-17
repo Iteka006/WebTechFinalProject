@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/booking.css" rel="stylesheet" />
+    <title>Bus Search</title>
+   
+    
+</head>
+<body>
+
+    <nav>
+        <div>
+        <a href="booking.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="#">Contact</a>
+        <!-- Add more links as needed -->
+    </div>
+    <div>
+        <a id="signOut" onclick="confirmSignOut()">Sign Out</a>
+    </div>
+    </nav>
+
+
+<br>
+    <h2>WELCOME TO TICKET BOOKING</h2>
+    <br>
+    <br>
+    <div id="container">
+        <div id="noSelectionMessage">Please select origin, destination, and date.</div>
+        <form id="searchForm" onsubmit="searchBuses(event)">
+            <label for="origin">Origin:</label>
+            <select id="origin" name="origin" required>
+                <option value="Kigali">Kigali</option>
+                <option value="Butare">Butare</option>
+                <option value="Kayonza">Kayonza</option>
+                <option value="Musanze">Musanze</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label for="destination">Destination:</label>
+            <select id="destination" name="destination" required>
+                <option value="Musanze">Musanze</option>
+                <option value="Kayonza">Kayonza</option>
+                <option value="Kigali">Kigali</option>
+                <option value="Butare">Butare</option>
+                <!-- Add more options as needed -->
+            </select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required onchange="hideNoSelectionMessage()">
+            <button type="submit">Search Buses</button>
+        </form>
+
+        <div id="bookingAndResultsContainer">
+        <!-- Booking Form (Initially hidden) -->
+        <form id="bookingForm" style="display: none;" onsubmit="bookSeat(event)">
+            <h2>BOOK SEAT</h2>
+            <label for="busNumber">Bus Number:</label>
+            <input type="text" id="busNumber" name="busNumber" readonly required><br>
+
+            <label for="date">Date:</label>
+            <input type="text" id="bookingDate" name="bookingDate" readonly required><br>
+
+            <label for="seats">Seats:</label>
+            <input type="text" id="seats" name="seats" readonly required><br>
+
+            <label for="bookingOrigin">Origin:</label>
+            <input type="text" id="bookingOrigin" name="bookingOrigin" readonly required><br>
+
+            <label for="bookingDestination">Destination:</label>
+            <input type="text" id="bookingDestination" name="bookingDestination" readonly required><br>
+
+            <label for="hour">Hour:</label>
+            <input type="text" id="hour" name="hour" readonly required><br>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" readonly required><br>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter your firstName" required><br>
+
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter your lastName" required><br>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Enter your Phone Number" required><br>
+
+            <button type="submit">Book Seat</button>
+            <div id="pinEntryPanel" style="visibility: hidden;">
+                <label for="pin">Enter 5-digit PIN:</label>
+              
+            </div>
+            
+        
+        </form>
+
+        <div>
+        <div id="noResultsMessage">No buses Available</div>
+        <div id="resultContainer" style="display: none;">
+            <div id="seatSelectionMessage" style="color: red; margin-top: 10px;">Select an unbooked seat.</div>
+        
+        <table id="resultTable" border="1" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Bus Number</th>
+                    <th>Date</th>
+                    <th>Seats</th>
+                    <th>Origin</th>
+                    <th>Destination</th>
+                    <th>Status</th>
+                    <th>Hour</th>
+                    <th>Price</th>
+                  
+                </tr>
+            </thead>
+            <tbody id="resultBody"></tbody>
+        </table>
+        <button id="downloadButton" style="display: none;" onclick="downloadDocument()">Download Document</button>
+    </div>
+
+    </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br> <br> <br> <br> <br> <br> <br>
+    <footer id="footer" style="display: none;">
+        &copy; 2023 Your Bus Search App. All rights reserved.
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>Address: 123 Main Street, Cityville</p>
+            <p>Phone: +1 (555) 123-4567</p>
+            <p>Email: info@busticketbooking.com</p>
+        </div>
+    </footer>
+    
+    <script>
+        function hideNoSelectionMessage() {
+            document.getElementById("noSelectionMessage").style.display = "none";
+        }
+        async function searchBuses(event) {
+            event.preventDefault();
+            
+            const origin = document.getElementById("origin").value;
+            const destination = document.getElementById("destination").value;
+            const date = document.getElementById("date").value;
+
+            const apiUrl = `http://localhost:8080/bus/search?origin=${origin}&destination=${destination}&date=${date}`;
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                displayResults(data);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error.message);
+            }
+        }
+
+     
+        function displayResults(buses) {
+            const resultTable = document.getElementById("resultTable");
+            const noResultsMessage = document.getElementById("noResultsMessage");
+            const bookingForm = document.getElementById("bookingForm");
+            const seatSelectionMessage = document.getElementById("seatSelectionMessage");
+            
+            
+
+            // Clear previous results and message
+            resultTable.style.display = "none";
+            noResultsMessage.style.display = "none";
+            bookingForm.style.display = "none";
+            seatSelectionMessage.style.display = "none";
+           
+            
+
+            if (buses.length > 0) {
+                const resultBody = document.getElementById("resultBody");
+                resultBody.innerHTML = '';
+
+                // Display new results in the table
+                buses.forEach(bus => {
+                    const row = document.createElement("tr");
+
+                    // Exclude busId from displaying
+                    row.innerHTML = `
+                        <td>${bus.busNo}</td>
+                        <td>${bus.date}</td>
+                        <td>${bus.seats}</td>
+                        <td>${bus.origin}</td>
+                        <td>${bus.destination}</td>
+                        <td>${bus.status}</td>
+                        <td>${bus.hour}</td>
+                        <td>${bus.price}</td>
+                       
+                    `;
+
+                    row.onclick = function () {
+  const seatSelectionMessage = document.getElementById("seatSelectionMessage");
+ 
+    if (bus.status === "unbooked") {
+        // Populate the booking form with bus information
+        document.getElementById("busNumber").value = bus.busNo;
+        document.getElementById("bookingDate").value = bus.date;
+        document.getElementById("seats").value = bus.seats;
+        document.getElementById("bookingOrigin").value = bus.origin; // Updated ID
+        document.getElementById("bookingDestination").value = bus.destination; // Updated ID
+        // document.getElementById("status").value = bus.status;
+        document.getElementById("hour").value = bus.hour;
+        document.getElementById("price").value = bus.price;
+
+        // Display the booking form
+        document.getElementById("bookingForm").style.display = "block";
+        seatSelectionMessage.style.display = "none";
+      
+    }else {
+                        // Show seat selection message for booked seats
+                        seatSelectionMessage.style.display = "block";
+                        seatSelectionMessage.textContent = "Seat Already booked";
+                    }
+};
+
+
+                    resultBody.appendChild(row);
+                });
+
+                // Display the table
+                resultTable.style.display = "table";
+                document.getElementById("resultContainer").style.display = "block";
+                downloadButton.style.display = "block";
+                if (buses.some(bus => bus.status === "unbooked")) {
+            // Show the seat selection message if there are unbooked seats
+            seatSelectionMessage.style.display = "block";
+            seatSelectionMessage.textContent = "Select an unbooked seat.";
+        }
+            } else {
+                // Display no results message
+                noResultsMessage.style.display = "block";
+              
+            }
+        }
+
+        async function downloadDocument() {
+    const busNo = document.getElementById("busNumber").value;
+    const apiUrl = `http://localhost:8080/bus/download/${busNo}`;
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        // Log the response headers to check Content-Type and Content-Disposition
+        console.log('Response Headers:', response.headers);
+
+        // Extract filename from Content-Disposition header
+        const contentDisposition = response.headers.get('Content-Disposition');
+        const filenameMatch = contentDisposition && contentDisposition.match(/filename="(.+?)"/);
+        const filename = filenameMatch ? filenameMatch[1] : 'document.pdf';
+
+        // Trigger the download
+        const blob = await response.blob();
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(new Blob([blob]));
+
+        // Use the filename extracted from the header
+        link.download = filename;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    } catch (error) {
+        console.error('There was a problem with the fetch operation:', error.message);
+    }
+}
+
+
+
+
+
+        async function bookSeat(event) {
+            event.preventDefault();
+
+const firstname = document.getElementById("firstName").value;
+const lastname = document.getElementById("lastName").value;
+const phoneNumber = document.getElementById("phoneNumber").value;
+const busNo = document.getElementById("busNumber").value;
+const seats = document.getElementById("seats").value;
+const date = document.getElementById("bookingDate").value;
+const origin = document.getElementById("bookingOrigin").value;
+const destination = document.getElementById("bookingDestination").value;
+// const status = document.getElementById("status").value;
+const hour = document.getElementById("hour").value;
+const price = document.getElementById("price").value;
+
+// Validate phone number length
+if (phoneNumber.length !== 10) {
+    alert("Phone number must be exactly 10 digits.");
+    return; // Prevent further execution if validation fails
+}
+
+const bookingData = {
+    firstname,
+    lastname,
+    phoneNumber,
+    busNo,
+    seats,
+    date,
+    origin,
+    destination,
+    // status,
+    hour,
+    price,
+};
+
+try {
+    // Send AJAX request to save seat information in the Seat table
+    const seatResponse = await fetch("http://localhost:8080/seats/book", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingData),
+    });
+
+    if (!seatResponse.ok) {
+        throw new Error("Error saving seat information");
+    }
+    console.log("Seat booked successfully!");
+    alert("Thank you for booking!");
+    resetBookingForm();
+
+    // Send AJAX request to update the status in the Bus table
+    const busResponse = await fetch(`http://localhost:8080/bus/updateStatus/${busNo}/${seats}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!busResponse.ok) {
+        throw new Error("Error updating bus status");
+    }
+
+    // Display a success message (you can modify this based on your requirements)
+    console.log("Seat booked successfully!");
+    await searchBuses(new Event('submit'));
+
+    // You may also choose to update the status in the result table
+    // ...
+
+} catch (error) {
+    console.error("There was a problem with the booking:", error.message);
+    if (error.message.includes("Seat already booked")) {
+        alert("This seat is already booked. Please choose another seat.");
+    }
+}
+
+function resetBookingForm() {
+    // Reset form elements
+    document.getElementById("firstName").value = "";
+    document.getElementById("lastName").value = "";
+    document.getElementById("phoneNumber").value = "";
+    document.getElementById("busNumber").value = "";
+    document.getElementById("seats").value = "";
+    document.getElementById("bookingDate").value = "";
+    document.getElementById("bookingOrigin").value = "";
+    document.getElementById("bookingDestination").value = "";
+    document.getElementById("hour").value = "";
+    document.getElementById("price").value = "";
+}
+        
+    }
+    window.addEventListener('scroll', function () {
+    const currentScrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.clientHeight;
+
+    if (currentScrollPosition + windowHeight >= documentHeight) {
+        // At the bottom of the page
+        footer.style.display = 'block';
+    } else {
+        // Not at the bottom
+        footer.style.display = 'none';
+    }
+
+    lastScrollPosition = currentScrollPosition;
+});
+
+
+
+function confirmSignOut() {
+            // Display a confirmation dialog
+            const isConfirmed = window.confirm("Are you sure you want to sign out?");
+
+            // If the user clicks "OK" (true), proceed with sign out
+            if (isConfirmed) {
+                signOut();
+            } else {
+                // If the user clicks "Cancel" (false), do nothing
+                // You can add additional logic if needed
+            }
+        }
+
+        function signOut() {
+            // Implement your sign-out logic here
+            // For example, redirect to the login page with a delay
+            setTimeout(function () {
+                window.location.href = 'login.html';
+            }, 1000); // Redirect after 1 second (adjust the delay as needed)
+        }
+
+
+    </script>
+
+</body>
+</html>

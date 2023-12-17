@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/admin.css" rel="stylesheet" />
+    <title>Bus Management</title>
+
+    
+</head>
+
+<body>
+
+    <div id="busForm">
+        <h2>ADMIN BUS MANAGEMENT</h2>
+
+        <!-- Combined Form for Register, Update, and Delete -->
+        <form>
+            <!-- Common Fields -->
+            <label for="busNo">Bus Number:</label>
+            <select id="busNo" name="busNo" required></select>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date">
+
+            <label for="origin">Origin:</label>
+            <select id="origin" name="origin"></select>
+
+            <label for="destination">Destination:</label>
+            <select id="destination" name="destination"></select>
+
+            <label for="hour">Hour:</label>
+            <input type="text" id="hour" name="hour" pattern="^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" title="Enter a valid hour (HH:mm)" required>
+
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price">
+
+            <label for="document">Upload Document (PDF):</label>
+            <input type="file" id="document" name="document" accept=".pdf">
+
+            <div id="buttonsContainer">
+
+                <!-- Register Button -->
+                <button type="button" onclick="registerBus()">Register</button>
+
+                <!-- Update Button -->
+                <button type="button" onclick="updateBus()">Update</button>
+
+                <!-- Delete Button -->
+                <button type="button" onclick="deleteBus()">Delete</button>
+
+                <!-- Register Button -->
+                <button type="button" onclick="uploadDocument()">Upload Document</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Sample data for bus numbers, origins, and destinations
+        const busNumbers = ['9001', '9003', '9005'];
+        const origins = ['Kigali', 'Butare', 'Kayonza'];
+        const destinations = ['Kayonza', 'Kigali', 'Butare'];
+
+        // Function to populate select boxes
+        function populateSelectBox(id, options) {
+            const selectBox = document.getElementById(id);
+            selectBox.innerHTML = '';
+
+            options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option;
+                optionElement.text = option;
+                selectBox.add(optionElement);
+            });
+        }
+
+        // Populate bus numbers, origins, and destinations select boxes
+        populateSelectBox('busNo', busNumbers);
+        populateSelectBox('origin', origins);
+        populateSelectBox('destination', destinations);
+
+        async function registerBus() {
+            const busNo = document.getElementById('busNo').value;
+            const date = document.getElementById('date').value;
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const hour = document.getElementById('hour').value;
+            const price = document.getElementById('price').value;
+
+            // Validate that all fields are filled
+            if (!busNo || !date || !origin || !destination || !hour || !price) {
+                alert("Please fill in all fields before registering the bus.");
+                return;
+            }
+
+            // Check if the busNo already exists
+            const existingBuses = await fetch(`/bus/getByBusNo/${busNo}`);
+            const existingBusesData = await existingBuses.json();
+
+            if (existingBusesData.length > 0) {
+                alert("This Bus is unavailable. Please choose a different Bus.");
+            } else {
+                // Proceed with the registration
+                const response = await fetch(`/bus/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ busNo, date, origin, destination, hour, price }),
+                });
+
+                const result = await response.text();
+                alert(result);
+            }
+        }
+
+        async function uploadDocument() {
+            const busNo = document.getElementById('busNo').value;
+            const documentInput = document.getElementById('document');
+            const file = documentInput.files[0];
+
+            if (!busNo) {
+                alert("Please select a bus before uploading a document.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch(`/bus/uploadDocument/${busNo}`, {
+                method: 'POST',
+                body: formData,
+            });
+
+            const result = await response.text();
+            alert(result);
+        }
+
+        async function updateBus() {
+            const busNo = document.getElementById('busNo').value;
+            const date = document.getElementById('date').value;
+            const origin = document.getElementById('origin').value;
+            const destination = document.getElementById('destination').value;
+            const hour = document.getElementById('hour').value;
+            const price = document.getElementById('price').value;
+
+            const response = await fetch(`/bus/update/${busNo}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ date, origin, destination, hour, price }),
+            });
+
+            const result = await response.text();
+            alert(result);
+        }
+
+        async function deleteBus() {
+            const busNo = document.getElementById('busNo').value;
+
+            const response = await fetch(`/bus/${busNo}`, {
+                method: 'DELETE',
+            });
+
+            const result = await response.text();
+            alert(result);
+        }
+    </script>
+
+</body>
+
+</html>

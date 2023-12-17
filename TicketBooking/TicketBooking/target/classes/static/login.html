@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap" rel="stylesheet" />
+    <link href="./css/login.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="red-part">
+            <div class="red-part-text">Ticket Booking</div>
+            <img src="tasks (1).png" alt="Your Image" style="max-width: 100%; max-height: 100%;">
+            <div class="connecting-message">
+                Connecting you to your Destination
+                <p>With Ease And Convenience</p>
+            </div>
+        </div>
+        
+        <div class="white-part">
+            <br>
+            <br>
+            <br>
+            <div class="title">LOGIN PAGE</div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            <form onsubmit="loginUser(); return false;">
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number">
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter Password" required>
+
+                <button type="submit">LOGIN</button>
+            </form>
+
+            <div class="message" id="registrationMessage"></div>
+            <div class="error-message" id="loginErrorMessage"></div>
+
+            <div class="links">
+                <p>No Account? <a href="register.html">Register</a></p>
+                <p>Forgot Password? <a href="reset.html">Reset Password</a></p>
+            </div>
+        </div>
+    </div>
+
+   <script>
+        function loginUser() {
+            const formData = {
+                phoneNumber: document.getElementById('phoneNumber').value,
+                password: document.getElementById('password').value,
+            };
+
+            fetch('/user/retrieve?phoneNumber=' + formData.phoneNumber + '&password=' + formData.password, {
+                method: 'GET',
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+
+                // Check for a successful login, you may need to adjust the condition based on your response structure.
+                if (data.length > 0) {
+                    // Extract the role from the user data (assuming 'role' is a property in the response).
+                    const userRole = data[0].role;
+
+                    // Redirect based on user role.
+                    if (userRole === 'user') {
+                        window.location.href = '/booking.html';
+                    } else if (userRole === 'admin') {
+                        window.location.href = '/bus.html';
+                    } else {
+                        console.error('Invalid role:', userRole);
+                    }
+                } else {
+                    // Show login error message
+                    const loginErrorMessage = document.getElementById('loginErrorMessage');
+                    loginErrorMessage.textContent = 'Invalid password or phone number.';
+                    loginErrorMessage.style.color = 'red';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

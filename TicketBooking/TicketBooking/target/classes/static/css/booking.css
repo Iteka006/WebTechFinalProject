@@ -1,0 +1,211 @@
+body {
+font-size: 14px;
+margin: 0;
+padding: 0;
+font-family: 'Inria Sans', sans-serif; /* Add your preferred font family */
+}
+
+#container {
+display: flex;
+flex-direction: column;
+gap: 20px;
+max-width: 1000px;
+margin: 20px auto;
+align-items: center;
+}
+
+#searchForm {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+margin-bottom: 20px;
+align-items: center;
+}
+
+#searchForm label {
+flex: 0 0 auto;
+width: 100px;
+margin-right: 10px;
+}
+
+#searchForm select,
+#searchForm input {
+flex: 1 0 100px;
+max-width: calc(100% - 110px);
+}
+
+#searchForm button {
+flex: 1 0 100%;
+max-width: calc(100% - 110px);
+margin-top: 20px;
+}
+
+#noSelectionMessage {
+color: rgb(255, 0, 0);
+margin-top: 10px;
+font-size: 18px;
+}
+
+h2 {
+color: rgba(214, 16, 16, 1);
+text-align: center; /* Add this line to center the text */
+}
+
+
+form {
+background-color: #fff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
+}
+
+label {
+display: block;
+margin-bottom: 8px;
+color: #555;
+}
+
+select,
+input {
+width: 100%;
+padding: 8px;
+margin-bottom: 12px;
+border: 1px solid #ddd;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+button {
+background-color: rgba(218, 63, 63, 1);
+color: white;
+padding: 10px 15px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: rgba(218, 63, 63, 1)
+}
+
+#bookingAndResultsContainer {
+display: flex;
+gap: 20px;
+width: 100%; /* Adjust as needed */
+}
+
+#bookingForm {
+flex: 1; /* Adjust as needed, this takes 50% */
+}
+
+#noResultsMessage {
+color: red;
+margin-top: 10px;
+display: none;
+}
+
+table {
+width: 100%;
+border-collapse: collapse;
+margin-top: 20px;
+}
+
+th,
+td {
+border: 1px solid #ddd;
+padding: 8px;
+text-align: left;
+}
+
+th {
+background-color: rgba(218, 63, 63, 1);
+color: white;
+}
+
+tbody tr:hover {
+background-color: #f5f5f5;
+}
+
+#resultTable {
+flex: 2; /* Adjust as needed, this takes 50% */
+}
+nav {
+background-color: rgba(149, 2, 2, 1);
+padding: 20px 0;
+display: flex;
+justify-content: flex-end; /* Align items to the right side */
+}
+
+nav a {
+color: white;
+text-decoration: none;
+padding-left: 10px; /* Adjust padding for spacing between links */
+margin: 0 10px; /* Adjust margin for spacing between links */
+font-weight: bold;
+font-size: 18px;
+
+}
+#signOut {
+cursor: pointer;
+}
+nav a[href="booking.html"] {
+/* text-decoration: underline; */
+color: rgb(216, 215, 248); /* Change the color as needed */
+}
+/* Footer styles */
+/* Footer styles */
+/* Footer styles */
+footer {
+position: fixed;
+bottom: 0;
+left: 0;
+width: 100%;
+background-color: rgba(149, 52, 52, 1);
+color: white;
+text-align: center;
+padding: 10px 0;
+font-weight: bold;
+display: none; 
+}
+
+.footer-content {
+display: flex;
+justify-content: space-between;
+align-items: center;
+max-width: 1000px; /* Adjust as needed */
+margin: 0 auto; /* Center the footer */
+}
+
+.contact-info,
+.company-info {
+text-align: left;
+}
+
+h3 {
+color: #ffc107; /* Yellow color for section headers */
+}
+
+p {
+color: #f8f9fa; /* Light gray color for text */
+margin-bottom: 10px;
+}
+
+@media (max-width: 600px) {
+footer {
+padding: 10px;
+}
+
+.footer-content {
+flex-direction: column;
+align-items: center;
+}
+
+.contact-info,
+.company-info {
+text-align: center;
+}
+}
+
+
+

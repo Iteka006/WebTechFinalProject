@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Saira+Stencil+One&display=swap" rel="stylesheet" />
+    <link href="./css/register.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="red-part">
+            <div class="red-part-text">Ticket Booking</div>
+            <img src="tasks (1).png" alt="Your Image" style="max-width: 100%; max-height: 100%;">
+            <div class="connecting-message">
+                Connecting you to your Destination
+                <p>With Ease And Convenience</p>
+            </div>
+        </div>
+        
+        <div class="white-part">
+            <br>
+            <br>
+            <div class="title">USER REGISTRATION</div>
+            <br>
+            <br>
+
+            <form onsubmit="registerUser(); return false;">
+                <label for="firstname">First Name:</label>
+                <input type="text" id="firstname" name="firstname"  required>
+
+                <label for="lastname">Last Name:</label>
+                <input type="text" id="lastname" name="lastname" required>
+
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber"  required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"  required>
+                
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword"  required>
+
+                <div class="error-message" id="phoneNumberError"></div>
+                <div class="error-message" id="passwordMatchError"></div>
+                <div class="error-message" id="passwordLengthError"></div>
+                <button type="submit">Register</button>
+            </form>
+
+            <div class="message" id="registrationMessage"></div>
+
+            <div class="links">
+                <p>Already have an account? <a href="login.html">Login</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function registerUser() {
+            const firstname = document.getElementById('firstname').value;
+            const lastname = document.getElementById('lastname').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+    
+            // Validate phone number
+            const phoneNumberError = document.getElementById('phoneNumberError');
+            if (!/^\d{10}$/.test(phoneNumber)) {
+                phoneNumberError.textContent = 'Phone number must be exactly 10 digits.';
+                return; // Stop registration process
+            } else {
+                phoneNumberError.textContent = ''; // Clear error message
+            }
+
+            const passwordLengthError = document.getElementById('passwordLengthError');
+            if (password.length < 8 || password.length > 16) {
+                passwordLengthError.textContent = 'Password must be between 8 and 16 characters.';
+                return; // Stop registration process
+            } else {
+                passwordLengthError.textContent = ''; // Clear error message
+            }
+    
+            // Validate password match
+            const passwordMatchError = document.getElementById('passwordMatchError');
+            if (password !== confirmPassword) {
+                passwordMatchError.textContent = 'Passwords do not match.';
+                return; // Stop registration process
+            } else {
+                passwordMatchError.textContent = ''; // Clear error message
+            }
+    
+            const formData = {
+                firstname,
+                lastname,
+                phoneNumber,
+                password,
+            };
+    
+            fetch('/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.text())
+            .then(data => {
+                console.log('Response:', data);
+    
+                const messageElement = document.getElementById('registrationMessage');
+                if (data.trim().toLowerCase().includes('success')) {
+                    messageElement.style.color = 'green';
+                    messageElement.textContent = 'Registration successful!';
+
+                    document.getElementById('firstname').value = '';
+                    document.getElementById('lastname').value = '';
+                    document.getElementById('phoneNumber').value = '';
+                    document.getElementById('password').value = '';
+                    document.getElementById('confirmPassword').value = '';
+
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
+                } else {
+                    messageElement.style.color = 'red';
+                    messageElement.textContent = 'Registration failed. Please try again. Response: ' + data;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

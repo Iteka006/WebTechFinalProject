@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
+    <title>Forgot Password</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .password-reset-container {
+            width: 80%;
+            max-width: 500px;
+            background: #fff;
+            position: relative;
+            padding: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            color: #333;
+            font-family: Inter;
+            font-weight: bold;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .description {
+            color: #555;
+            font-family: Inter;
+            font-weight: regular;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .error-message {
+            color: red;
+            font-family: Inter;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 10px;
+            display: none;
+        }
+
+        button {
+            width: calc(100% - 30px); /* Adjusted width */
+            height: 40px;
+            background: #d51010;
+            border-radius: 25px;
+            border: none;
+            color: #fff;
+            font-family: Inter;
+            font-weight: medium;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        input::placeholder {
+            color: rgb(92, 80, 80); /* Change to your desired color */
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="password-reset-container">
+        <span class="title">Forgot Password</span>
+        <span class="description">A code was sent to your phone number to reset the password!</span>
+        <input type="tel" id="code" name="code" placeholder="Enter Code provided">
+        <div class="error-message" id="errorMessage">Code must be 5 digits</div>
+        <button type="button" onclick="validateAndRedirect()">Send Code</button>
+    </div>
+
+    <script>
+        function validateAndRedirect() {
+            var code = document.getElementById('code').value;
+            var errorMessage = document.getElementById('errorMessage');
+
+            // Check if the code is exactly 5 digits
+            if (/^\d{5}$/.test(code)) {
+                // Hide the error message
+                errorMessage.style.display = 'none';
+
+                // Redirect to resetPassword.html
+                window.location.href = 'resetPassword.html';
+            } else {
+                // Display error message
+                errorMessage.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>
