@@ -1,6 +1,7 @@
 # WebTechFinalProject
 **Introduction**
 The Online Bus Ticket Booking System aims to provide a convenient and efficient platform for users to book bus tickets from the comfort of their homes. This system simplifies the traditional process of purchasing bus tickets, offering users a seamless and user-friendly experience.
+
  **Project Requirements**
  1. _Purpose of the Project_
  The purpose of the Online Bus Ticket Booking System is to provide a platform for users to browse and book bus tickets. The system should facilitate bus registration, seat booking, user registration, and document upload/download for buses.
