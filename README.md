@@ -8,12 +8,15 @@ The Online Bus Ticket Booking System aims to provide a convenient and efficient 
    User Registration and Authentication:
 - Users should be able to register and log in securely.
 - Differentiate between user roles (e.g., user and admin).
+  
   Bus Management:
 - Buses should be registerable with details such as bus number, origin, destination, date, etc.
 - The system should support updating and deleting bus information.
+  
   Seat Booking:
 - Users should be able to search for available buses based on origin, destination, and date.
 - Users should be able to select and book available seats on a chosen bus.
+  
 - Document Management:
 Buses should support the upload and download of documents (Information about the Bus).
 3. _Constraints or Limitations:_
