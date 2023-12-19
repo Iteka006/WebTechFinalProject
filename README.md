@@ -164,4 +164,4 @@ The application follows a comprehensive testing strategy, including unit tests f
 Conclusion
 The Online Bus Ticket Booking System is designed and implemented with a focus on scalability, maintainability, and user experience. The chosen technologies and architectural patterns contribute to the robustness and efficiency of the application.
 
-                                                                                                           Author Grace Chanice Iteka 
+                                                                                              Author Grace Chanice Iteka 
