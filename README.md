@@ -84,6 +84,8 @@ Testing: PostMan.
 
 ![ER_Diagram1](https://github.com/Iteka006/WebTechFinalProject/assets/85046852/2763c31a-6354-44cc-8fad-41d056ccbc1f)
 
+![ER_Diagram2](https://github.com/Iteka006/WebTechFinalProject/assets/85046852/999686e2-c698-4ab3-bf69-699f082cc78b)
+
 
  **User Documentation**
    
